@@ -1,0 +1,9 @@
+{
+    "name": "com.hathora.client",
+    "version": "0.1.0",
+    "displayName": "Hathora Client SDK",
+    "dependencies": {
+    },
+    "type": "tool",
+    "unity": "2020.2"
+  }
