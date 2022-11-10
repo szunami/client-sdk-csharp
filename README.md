@@ -1,4 +1,4 @@
-# Hathora Rust Csharp SDK
+# Hathora C# Client  SDK
 
 [![openupm](https://img.shields.io/npm/v/com.hathora.client?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.hathora.client/)
 [![NuGet version (Hathora.ClientSdk)](https://img.shields.io/nuget/v/Hathora.ClientSdk.svg?style=flat-square)](https://www.nuget.org/packages/Hathora.ClientSdk/)
