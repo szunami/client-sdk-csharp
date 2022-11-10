@@ -1,6 +1,6 @@
 {
     "name": "com.hathora.client",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "displayName": "Hathora Client SDK",
     "dependencies": {
     },
