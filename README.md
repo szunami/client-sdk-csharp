@@ -4,6 +4,19 @@
 
 [Nuget Package](https://www.nuget.org/packages/Hathora.ClientSdk)
 
+# Installation
+
+## OpenUPM
+
+```bash
+openupm add com.hathora.client
+```
+
+## Nuget
+```bash
+dotnet add package Hathora.ClientSdk --version 0.2.0
+```
+
 ## Publishing Instructions
 
 ### OpenUPM
