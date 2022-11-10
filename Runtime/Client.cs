@@ -15,24 +15,11 @@ namespace Hathora
         private readonly string coordinatorHost;
         private readonly HttpClient httpClient;
 
-
-        public Client(string appId, string coordinatorHost)
+        public Client(string appId, string coordinatorHost = "coordinator.hathora.dev")
         {
             this.appId = appId;
             this.coordinatorHost = coordinatorHost;
             this.httpClient = new HttpClient();
-        }
-
-        public Client(string appId)
-        {
-            this.appId = appId;
-            this.coordinatorHost = "coordinator.hathora.dev";
-            this.httpClient = new HttpClient();
-        }
-
-        class LoginResponse
-        {
-            public string token;
         }
 
         public async Task<string> LoginAnonymous()
@@ -43,9 +30,20 @@ namespace Hathora
             return login.token;
         }
 
-        class CreateResponse
+        public async Task<string> LoginNickname()
         {
-            public string stateId;
+            HttpResponseMessage loginResponse = await httpClient.PostAsync($"https://{coordinatorHost}/{appId}/login/nickname", null);
+            string loginBody = await loginResponse.Content.ReadAsStringAsync();
+            LoginResponse login = JsonConvert.DeserializeObject<LoginResponse>(loginBody);
+            return login.token;
+        }
+
+        public async Task<string> LoginGoogle()
+        {
+            HttpResponseMessage loginResponse = await httpClient.PostAsync($"https://{coordinatorHost}/{appId}/login/google", null);
+            string loginBody = await loginResponse.Content.ReadAsStringAsync();
+            LoginResponse login = JsonConvert.DeserializeObject<LoginResponse>(loginBody);
+            return login.token;
         }
 
         public async Task<string> Create(string token, byte[] body)
@@ -69,14 +67,6 @@ namespace Hathora
             return webSocket;
         }
 
-        class Token
-        {
-            public string type;
-            public string id;
-            public string name;
-            public int iat;
-        }
-
         // Source: https://stackoverflow.com/a/39280625/834459
         public static string GetUserFromToken(string token)
         {
@@ -97,5 +87,23 @@ namespace Hathora
 
             return "";
         }
+    }
+
+    class LoginResponse
+    {
+        public string token;
+    }
+
+    class Token
+    {
+        public string type;
+        public string id;
+        public string name;
+        public int iat;
+    }
+
+    class CreateResponse
+    {
+        public string stateId;
     }
 }
