@@ -69,6 +69,14 @@ namespace Hathora
             return webSocket;
         }
 
+        class Token
+        {
+            public string type;
+            public string id;
+            public string name;
+            public int iat;
+        }
+
         // Source: https://stackoverflow.com/a/39280625/834459
         public static string GetUserFromToken(string token)
         {
@@ -82,7 +90,9 @@ namespace Hathora
                     decode += new string('=', padLength);
                 }
                 var bytes = System.Convert.FromBase64String(decode);
-                return System.Text.ASCIIEncoding.ASCII.GetString(bytes);
+                string json = System.Text.ASCIIEncoding.ASCII.GetString(bytes);
+                Token jwt = JsonConvert.DeserializeObject<Token>(json);
+                return jwt.id;
             }
 
             return "";
