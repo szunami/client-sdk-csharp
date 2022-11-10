@@ -4,15 +4,15 @@
 
 [Nuget Package](https://www.nuget.org/packages/Hathora.ClientSdk)
 
-# Installation
+## Installation
 
-## OpenUPM
+### OpenUPM
 
 ```bash
 openupm add com.hathora.client
 ```
 
-## Nuget
+### Nuget
 ```bash
 dotnet add package Hathora.ClientSdk --version 0.2.0
 ```
@@ -21,9 +21,17 @@ dotnet add package Hathora.ClientSdk --version 0.2.0
 
 ### OpenUPM
 
-Update package.json version to $VERSION; commit this change.
+Update `package.json` version to $VERSION; commit this change.
 ```bash
 git tag $VERSION
 git push origin $VERSION
 ```
 Then openUPM will trigger a build pipeline; see https://openupm.com/packages/com.hathora.client/?subPage=pipelines
+
+### Nuget
+
+Update the `client-sdk-csharp.csproj` `Version` property to `$VERSION`.
+```bash
+dotnet pack --configuration Release
+nuget push ./bin/Release/Hathora.ClientSdk.$RELEASE.nupkg -Source https://api.nuget.org/v3/index.json
+```
