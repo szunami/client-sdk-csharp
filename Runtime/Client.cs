@@ -58,13 +58,16 @@ namespace Hathora
             return create.stateId;
         }
 
-        public async Task<ClientWebSocket> Connect(string token, string stateId)
+        public async Task<Transport> Connect(string token, string stateId, TransportType transportType)
         {
-            ClientWebSocket webSocket = new ClientWebSocket();
-            await webSocket.ConnectAsync(new Uri($"wss://{coordinatorHost}/connect/{appId}"), CancellationToken.None);
-            var bytesToSend = Encoding.UTF8.GetBytes($"{{\"token\": \"{token}\", \"stateId\": \"{stateId}\"}}");
-            await webSocket.SendAsync(bytesToSend, WebSocketMessageType.Binary, true, CancellationToken.None);
-            return webSocket;
+            WebsocketTransport result = new WebsocketTransport(appId, coordinatorHost);
+            await result.Connect(stateId, token);
+            return result;
+        }
+
+        public enum TransportType
+        {
+            WebSocket,
         }
 
         // Source: https://stackoverflow.com/a/39280625/834459
